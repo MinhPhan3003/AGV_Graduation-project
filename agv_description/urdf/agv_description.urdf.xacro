@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="agv">
+
+  <!-- this argumment is used in order to load the proper version of the ROS2 control library plugin -->
+  <xacro:arg name="is_ignition" default="true"/>
+
+
+  <xacro:arg name="is_sim" default="true"/>
+  <!-- Include Gazebo Parameters  -->
+  <xacro:include filename="$(find agv_description)/urdf/agv_gazebo.xacro"/>
+  <!-- Include ROS2 control parameters  -->
+  <xacro:include filename="$(find agv_description)/urdf/agv_ros2_control.xacro"/>
+
+
+  <link name="base_footprint"/>
+  
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.000475345127634696 4.00828473441361E-05 0.103204956144496"
+        rpy="0 0 0" />
+      <mass
+        value="33.6049622187982" />
+      <inertia
+        ixx="0.444197284873535"
+        ixy="4.75259835208252E-05"
+        ixz="-0.000648064535897803"
+        iyy="0.599152254181184"
+        iyz="-1.22590959041329E-06"
+        izz="0.933124525051267" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1.0 0.0 0.0 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.035" rpy="0.0 0.0 0.0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+
+  <link
+    name="Banh_xe_chu_dong_1_Link">
+    <inertial>
+      <origin
+        xyz="-0.00040649 -0.012996 -0.00010088"
+        rpy="0 0 0" />
+      <mass
+        value="0.59968" />
+      <inertia
+        ixx="0.0010627"
+        ixy="2.9209E-05"
+        ixz="3.2604E-07"
+        iyy="0.0016723"
+        iyz="1.0421E-07"
+        izz="0.0010619" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/Banh_xe_chu_dong_1_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.0 0.0 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.07"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Banh_xe_chu_dong_1_joint"
+    type="continuous">
+    <origin
+      xyz="0.027274 0.20708 0.036271"
+      rpy="0 0 0.048199" />
+    <parent
+      link="base_link" />
+    <child
+      link="Banh_xe_chu_dong_1_Link" />
+    <axis
+      xyz="0.04818 0.99884 0" />
+  </joint>
+  <link
+    name="Banh_xe_chu_dong_2_Link">
+    <inertial>
+      <origin
+        xyz="0.00084627 0.012975 -0.00010088"
+        rpy="0 0 0" />
+      <mass
+        value="0.59968" />
+      <inertia
+        ixx="0.0010628"
+        ixy="2.9729E-05"
+        ixz="3.145E-07"
+        iyy="0.0016722"
+        iyz="-1.3511E-07"
+        izz="0.0010619" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/Banh_xe_chu_dong_2_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.0 0.0 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.07"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Banh_xe_chu_dong_2_joint"
+    type="continuous">
+    <origin
+      xyz="0.027274 -0.207 0.036271"
+      rpy="0 0 0.048199" />
+    <parent
+      link="base_link" />
+    <child
+      link="Banh_xe_chu_dong_2_Link" />
+    <axis
+      xyz="0.04818 0.99884 0" />
+  </joint>
+  <link
+    name="Caster_1_Link">
+    <inertial>
+      <origin
+        xyz="0.00894253252516353 -0.0044186523091454 0.0151314240311655"
+        rpy="0 0 0" />
+      <mass
+        value="0.11911534751356" />
+      <inertia
+        ixx="5.83199182256829E-05"
+        ixy="2.16816499755623E-06"
+        ixz="-2.19875346476464E-06"
+        iyy="9.55937405528466E-05"
+        iyz="1.30943678786507E-07"
+        izz="7.34987727861473E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/Caster_1_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.0 0.8 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Caster_1_joint"
+    type="fixed">
+    <origin
+      xyz="0.24378 0.15297 0.0036951"
+      rpy="0 0 0.048199" />
+    <parent
+      link="base_link" />
+    <child
+      link="Caster_1_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Caster_2_Link">
+    <inertial>
+      <origin
+        xyz="0.0094195 0.0035671 0.015131"
+        rpy="0 0 0" />
+      <mass
+        value="0.11912" />
+      <inertia
+        ixx="5.832E-05"
+        ixy="2.1682E-06"
+        ixz="-2.1988E-06"
+        iyy="9.5594E-05"
+        iyz="1.3094E-07"
+        izz="7.3499E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/Caster_2_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.0 0.8 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Caster_2_joint"
+    type="fixed">
+    <origin
+      xyz="0.24352 -0.15257 0.0036951"
+      rpy="0 0 0.048199" />
+    <parent
+      link="base_link" />
+    <child
+      link="Caster_2_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Caster_3_Link">
+    <inertial>
+      <origin
+        xyz="-0.0094175 -0.0035725 0.015131"
+        rpy="0 0 0" />
+      <mass
+        value="0.11912" />
+      <inertia
+        ixx="5.8317E-05"
+        ixy="2.1469E-06"
+        ixz="2.1988E-06"
+        iyy="9.5596E-05"
+        iyz="-1.2969E-07"
+        izz="7.3499E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/Caster_3_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.0 0.8 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Caster_3_joint"
+    type="fixed">
+    <origin
+      xyz="-0.28362 0.13565 0.0036951"
+      rpy="0 0 0.048199" />
+    <parent
+      link="base_link" />
+    <child
+      link="Caster_3_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Caster_4_Link">
+    <inertial>
+      <origin
+        xyz="-0.0090299 0.0044623 0.015131"
+        rpy="0 0 0" />
+      <mass
+        value="0.11912" />
+      <inertia
+        ixx="5.8251E-05"
+        ixy="1.4632E-06"
+        ixz="2.2011E-06"
+        iyy="9.5662E-05"
+        iyz="-8.18E-08"
+        izz="7.3499E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/Caster_4_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.0 0.8 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Caster_4_joint"
+    type="fixed">
+    <origin
+      xyz="-0.28362 -0.13557 0.0036951"
+      rpy="0 0 0.048199" />
+    <parent
+      link="base_link" />
+    <child
+      link="Caster_4_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="lidar_Link">
+    <inertial>
+      <origin
+        xyz="-0.0067542 0.00041783 0.0056681"
+        rpy="0 0 0" />
+      <mass
+        value="1.3308" />
+      <inertia
+        ixx="0.00061564"
+        ixy="1.5842E-05"
+        ixz="-0.00015791"
+        iyy="0.00095997"
+        iyz="1.0712E-05"
+        izz="0.0010982" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/lidar_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.0 1.0 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/lidar_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0.36573 3.5329E-05 0.0869"
+      rpy="0 0 3.14" />
+    <parent
+      link="base_link" />
+    <child
+      link="lidar_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <link name="imu_link">
+    <inertial>
+      <origin xyz="-0.00552433659106688 0.000168210391520346 0.000514000497342681" rpy="0.0 0.0 0.0" />
+        <mass value="0.000528415362211671" />
+        <inertia ixx="1.4670648428261e-08" ixy="1.40015117949421e-10" ixz="-1.99633872937403e-12" 
+          iyy="8.596248954888e-09" iyz="7.52375112767959e-12" izz="2.30279421279312e-08" />
+    </inertial>
+    <visual>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/imu_link.STL" />  
+      </geometry>   
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh
+          filename="package://agv_description/meshes/imu_link.STL" />     
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.07" rpy="0.0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+</robot>

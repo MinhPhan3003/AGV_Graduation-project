@@ -1,0 +1,10 @@
+<library path="agv_firmware">
+    <class name="agv_firmware/AgvInterface"
+           type="agv_firmware::AgvInterface"
+           base_class_type="hardware_interface::SystemInterface">
+        <description>
+            Agv hardware interface
+        </description>
+    </class>
+</library>
+
