@@ -352,7 +352,9 @@ class CameraSubscriber(Node):
         self.fusion = CameraLidarFusion(camera_fov=83.0, image_width=640)
         
         # Safety controller
-        self.safety_controller = SafetyController(start_delay=4.0, stop_delay=5.0)
+        start_delay = self.declare_parameter('start_delay', 4.0).value
+        stop_delay = self.declare_parameter('stop_delay', 5.0).value
+        self.safety_controller = SafetyController(start_delay=start_delay, stop_delay=stop_delay)
         self.safety_controller.update_roi_bounds(640, 480)
         self.emergency_warning = False
         
