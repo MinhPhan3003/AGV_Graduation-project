@@ -28,6 +28,7 @@ setup(
             "controller_agv_speed_ultrasonic = agv_image_processing.controller_agv_speed_ultrasonic:main",  
             "safety_control = agv_image_processing.safety_control:main",  
             "safety_ultrasonic = agv_image_processing.safety_ultrasonic:main",  
+            "person_path_follower = agv_image_processing.person_path_follower:main",
         ],
     },
 )
