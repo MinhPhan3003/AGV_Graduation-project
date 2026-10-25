@@ -100,6 +100,21 @@ Main parameters:
 | `lidar_only_timeout` | 3.0 s | How long to track with the LiDAR only after the camera loses the person |
 | `obstacle_slow_dist` / `obstacle_stop_dist` | 0.8 m / 0.25 m | Obstacle distances for slowing down and stopping |
 
+#### Cascade PID (two loops)
+The speed of the trail controller is set by two PID loops, one inside the other:
+
+| Loop | Input (error) | Output | Gains |
+|---|---|---|---|
+| Outer, distance | Path length left minus `follow_distance` | Linear velocity setpoint | `linear_kp`, `linear_ki`, `linear_kd` |
+| Outer, heading | Angle to the pure pursuit point | Angular velocity setpoint | `angular_kp`, `angular_ki`, `angular_kd` |
+| Inner, velocity | Setpoint minus measured velocity (`/agv_controller/odom` twist) | Correction added to the setpoint | `vel_linear_kp/ki`, `vel_angular_kp/ki` |
+
+- The integral term of the outer distance loop removes the lag behind a walking person. With P only, a person walking at 0.3 m/s is followed at about 1.6 m instead of 1.0 m.
+- Inside the follow distance, the integral leaks away (`linear_i_leak`) instead of being reset, so the robot does not brake hard every time it reaches 1.0 m.
+- The inner loop makes the robot reach the speed the outer loop asks for, for example with a low battery or a heavy load. Its correction is limited to `vel_linear_limit` (0.1 m/s) and `vel_angular_limit` (0.2 rad/s). It is switched on with `use_velocity_loop`.
+- Every PID clamps its integral and stops integrating while its output is saturated (anti-windup). All PIDs are reset on an emergency stop, when the person is lost and when the detector restarts.
+- `use_imu_yaw_rate` uses the MPU6050 gyro instead of wheel odometry for the measured yaw rate. Keep it off until the gyro scale in `mpu6050_driver.py` is fixed.
+
 ### Ultrasonic safety (`safety_ultrasonic.py`)
 - Publishes `/emergency_stop = true` when any ultrasonic sensor reads less than 0.30 m in two checks in a row.
 - Releases the stop when every sensor reads more than 0.35 m.

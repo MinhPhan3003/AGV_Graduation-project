@@ -14,6 +14,19 @@ def generate_launch_description():
             'lookahead_distance': 0.5,
             'max_linear_vel': 0.38,
             'max_angular_vel': 0.43,
+            # Outer loop (position -> velocity setpoint)
+            'linear_kp': 0.5,
+            'linear_ki': 0.2,
+            'angular_kp': 1.2,
+            'angular_kd': 0.1,
+            # Inner loop (velocity setpoint vs wheel odometry -> correction)
+            'use_velocity_loop': True,
+            'vel_linear_kp': 0.3,
+            'vel_linear_ki': 1.0,
+            'vel_angular_kp': 0.3,
+            'vel_angular_ki': 1.0,
+            # Keep False until the MPU6050 gyro scale in mpu6050_driver.py is fixed
+            'use_imu_yaw_rate': False,
         }]
     )
 
